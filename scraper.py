@@ -8,7 +8,7 @@ MAX_RETRY = 5
 
 uralic_dict = pd.DataFrame()
 for idx, page_no in enumerate(range(1, 1899, 20)):
-    print(f'Scrapping page: {idx+1}...')
+    print(f'Scraping page: {idx+1}...')
 
     dict_entries = []
     i = 0
