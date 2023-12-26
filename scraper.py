@@ -13,6 +13,8 @@ for idx, page_no in enumerate(range(1, 1899, 20)):
     dict_entries = []
     i = 0
     while not dict_entries and i < MAX_RETRY:
+        if i: print(f'Retrying page: {idx+1}')
+
         url = f'https://starlingdb.org/cgi-bin/response.cgi?root=config&morpho=0&basename=\\data\\uralic\\uralet&first={page_no}'
 
         page = requests.get(url)
