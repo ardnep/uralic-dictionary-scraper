@@ -12,6 +12,11 @@ for idx, page_no in enumerate(range(1, 1899, 20)):
 
     dict_entries = []
     i = 0
+
+    '''
+    Sometimes the page returns an ngnix error which tends to fix itself 
+    if you retry. The while loop is for that retrying.
+    '''
     while not dict_entries and i < MAX_RETRY:
         if i: print(f'Retrying page: {idx+1}')
 
@@ -23,6 +28,7 @@ for idx, page_no in enumerate(range(1, 1899, 20)):
         dict_entries = soup.find_all('div', class_='results_record')
         i += 1
 
+    # retreive words and their english meanings
     for _idx, entry in enumerate(dict_entries):
         word = entry.find('span', string='Proto:').find_next_sibling('span').get_text()
         word = word.strip()
@@ -39,6 +45,7 @@ for idx, page_no in enumerate(range(1, 1899, 20)):
         }, index=[page_no+_idx])
         uralic_dict = pd.concat([uralic_dict, df_entry])
     
+    # saving in each time in case something goes wrong in one of the iterations
     uralic_dict.to_excel(EXCEL_FILE_PATH)
 
 print('Done')
